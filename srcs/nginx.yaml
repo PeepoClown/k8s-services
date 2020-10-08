@@ -9,18 +9,18 @@ spec:
   selector:
     app: nginx
   ports:
-  - port: 80
-    name: http
-    targetPort: 80
-    protocol: TCP
-  - port: 443
-    name: https
-    targetPort: 443
-    protocol: TCP
-  - port: 22
-    name: ssh
-    targetPort: 22
-    protocol: TCP
+    - port: 80
+      name: http
+      targetPort: 80
+      protocol: TCP
+    - port: 443
+      name: https
+      targetPort: 443
+      protocol: TCP
+    - port: 22
+      name: ssh
+      targetPort: 22
+      protocol: TCP
 
 ---
 
@@ -42,9 +42,12 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx_img
+        image: nginx_image:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 80
+          name: http
         - containerPort: 443
+          name: https
         - containerPort: 22
+          name: ssh

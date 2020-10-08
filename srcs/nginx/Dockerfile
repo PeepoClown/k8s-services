@@ -1,35 +1,37 @@
 FROM alpine:latest
-
 LABEL maintainer="wupdegra@student.21-school.ru"
 
+# update & install packages
 RUN apk update --no-cache && \
-	apk upgrade --no-cache
-
-RUN apk add --no-cache nginx \
+	apk upgrade --no-cache && \
+	apk add --no-cache nginx \
 					   openssl \
 					   openssh \
 					   supervisor
 
+# configure nginx
 RUN adduser -D -g 'www' www && \
 	mkdir -p /www /run/nginx && \
-	chown -R www:www /var/lib/nginx && \
-	chown -R www:www /www
+	chown -R www:www /www && \
+	chown -R www:www /var/lib/nginx
 
-RUN adduser -D wupdegra && \
-	echo "wupdegra:12345" | chpasswd && \
-	ssh-keygen -A
-
-RUN openssl req -x509 -nodes -days 90 -newkey rsa:2048 \
-	-subj '/C=RU/ST=Moscow/O=21School/CN=wupdegra' \
-	-keyout /etc/ssl/localhost.key \
-	-out /etc/ssl/localhost.crt
-
-COPY srcs/index.html /var/www/localhost/htdocs/
-COPY srcs/nginx.conf /etc/nginx/conf.d/default.conf
-COPY srcs/sshd_config /etc/ssh/sshd_config
+# copy sources
+COPY srcs/nginx.conf /etc/nginx/nginx.conf
+COPY srcs/index.html /www/index.html
 COPY srcs/supervisord.conf /etc/supervisord.conf
-COPY srcs/setup.sh /tmp/setup.sh
+
+#RUN adduser -D wupdegra && echo 'wupdegra:psswd' | chpasswd
+
+# generate ssl cert
+RUN openssl req -x509 -nodes -days 90 -newkey rsa:2048 \
+	-subj '/C=RU/ST=Moscow/L=Moscow/O=ecole42/OU=21School/CN=wupdegra' \
+	-keyout /etc/ssl/certs/localhost.key \
+	-out /etc/ssl/certs/localhost.crt
 
 EXPOSE 80 443 22
 
-CMD ["sh", "-c", "/tmp/setup.sh ; /usr/bin/supervisord -c /etc/supervisord.conf"]
+# run container
+COPY srcs/setup.sh /var/setup.sh
+RUN chmod 755 /var/setup.sh
+
+ENTRYPOINT [ "/var/setup.sh" ]

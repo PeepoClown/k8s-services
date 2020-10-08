@@ -1,35 +1,56 @@
-#!/bin/sh
+#!/bin/bash
 
 function start_msg()
 {
-	echo -e "\e[1;32m [ ] $1\e[0m"
-	sleep 1
+	echo -e "\e[1;34m[...] $1 \e[0m"
 }
-
 function complete_msg()
 {
-	echo -e "\e[1;32m [+] \e[1;36m$1\e[0m"
-	sleep 1
+	echo -e "\e[1;36m[ + ] $1 \e[0m"
 }
 
-# To enable API bearer tokens to be used to authenticate to the kubelet's HTTPS endpoint
-# --extra-config=kubelet.authentication-token-webhook=true
+function build_image()
+{
+	if docker build -t $2 $3
+	then echo -e "$1 : \e[1;36m[ + ] ok\e[0m"
+	else echo -e "$1 : \e[1;31m[ - ] ko\e[0m"
+	fi
+}
 
-minikube start --vm-driver=docker \
+function setup_service()
+{
+	if kubectl apply -f $2
+	then echo -e "$1 : \e[1;36m[ + ] ok\e[0m"
+	else echo -e "$1 : \e[1;31m[ - ] ko\e[0m"
+	fi
+}
+
+start_msg "launch minikube..."
+minikube start --driver=virtualbox \
 			   --cpus=2 \
-			   --memory=4096 \
-			   --extra-config=kubelet.authentication-token-webhook=true \
-			   --extra-config=apiserver.service-node-port-range=21-30000
+			   --memory=4096mb \
+			   --disk-size=20000mb \
+			   --extra-config=kubelet.authentication-token-webhook=true
+complete_msg "finished!"
 
-minikube addons enable metallb
-minikube addons enable metrics-server
-minikube addons enable dashboard
+start_msg "enabling addons..."
+minikube addons enable metallb > /dev/null
+minikube addons enable metrics-server > /dev/null
+minikube addons enable dashboard > /dev/null
+complete_msg "finished!"
 
-eval $(minikube docker-env)
+kubectl apply -f srcs/metallb-config.yaml > /dev/null && \
+complete_msg "load balancer configured!"
 
-export MINIKUBE_IP=$(minikube ip)
+eval $(minikube docker-env) > /dev/null
 
-docker build -t nginx_img srcs/nginx/
+start_msg "building images..."
+build_image "nginx image" nginx_image srcs/nginx
+complete_msg "finished!"
 
-kubectl apply -f srcs/metallb.yaml
-kubectl apply -f srcs/nginx.yaml
+start_msg "setup services..."
+setup_service "nginx service" srcs/nginx.yaml
+complete_msg "finished!"
+
+echo -e "\n\n"
+complete_msg "All Done!!!"
