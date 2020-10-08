@@ -20,7 +20,10 @@ COPY srcs/nginx.conf /etc/nginx/nginx.conf
 COPY srcs/index.html /www/index.html
 COPY srcs/supervisord.conf /etc/supervisord.conf
 
-#RUN adduser -D wupdegra && echo 'wupdegra:psswd' | chpasswd
+# FCKNG SSH
+RUN adduser -D ssh_user && echo 'ssh_user:psswd' | chpasswd
+RUN ssh-keygen -A
+COPY srcs/sshd_config /etc/ssh/sshd_config
 
 # generate ssl cert
 RUN openssl req -x509 -nodes -days 90 -newkey rsa:2048 \
