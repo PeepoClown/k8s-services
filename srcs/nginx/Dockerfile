@@ -4,10 +4,10 @@ LABEL maintainer="wupdegra@student.21-school.ru"
 # update & install packages
 RUN apk update --no-cache && \
 	apk upgrade --no-cache && \
-	apk add --no-cache nginx \
-					   openssl \
-					   openssh \
-					   supervisor
+	apk add nginx \
+			openssl \
+			openssh \
+			supervisor --no-cache 
 
 # configure nginx
 RUN adduser -D -g 'www' www && \
@@ -20,9 +20,9 @@ COPY srcs/nginx.conf /etc/nginx/nginx.conf
 COPY srcs/index.html /www/index.html
 COPY srcs/supervisord.conf /etc/supervisord.conf
 
-# FCKNG SSH
-RUN adduser -D ssh_user && echo 'ssh_user:psswd' | chpasswd
-RUN ssh-keygen -A
+# configure ssh
+RUN adduser -D ssh_user && echo 'ssh_user:psswd' | chpasswd && \
+	ssh-keygen -t rsa -b 2048 -f /etc/ssh/id_rsa_host_key
 COPY srcs/sshd_config /etc/ssh/sshd_config
 
 # generate ssl cert

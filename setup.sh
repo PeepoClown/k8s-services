@@ -6,13 +6,13 @@ function start_msg()
 }
 function complete_msg()
 {
-	echo -e "\e[1;36m[ + ] $1 \e[0m"
+	echo -e "\e[1;32m[ + ] $1 \e[0m"
 }
 
 function build_image()
 {
 	if docker build -t $2 $3
-	then echo -e "$1 : \e[1;36m[ + ] ok\e[0m"
+	then echo -e "$1 : \e[1;32m[ + ] ok\e[0m"
 	else echo -e "$1 : \e[1;31m[ - ] ko\e[0m"
 	fi
 }
@@ -20,17 +20,17 @@ function build_image()
 function setup_service()
 {
 	if kubectl apply -f $2
-	then echo -e "$1 : \e[1;36m[ + ] ok\e[0m"
+	then echo -e "$1 : \e[1;32m[ + ] ok\e[0m"
 	else echo -e "$1 : \e[1;31m[ - ] ko\e[0m"
 	fi
 }
 
 start_msg "launch minikube..."
-minikube start --driver=virtualbox \
-			   --cpus=2 \
-			   --memory=4096mb \
-			   --disk-size=20000mb \
-			   --extra-config=kubelet.authentication-token-webhook=true
+minikube start	--vm-driver=virtualbox \
+				--cpus=2 \
+				--memory=4096mb \
+				--disk-size=10000mb \
+				--extra-config=kubelet.authentication-token-webhook=true
 complete_msg "finished!"
 
 start_msg "enabling addons..."
@@ -39,10 +39,14 @@ minikube addons enable metrics-server > /dev/null
 minikube addons enable dashboard > /dev/null
 complete_msg "finished!"
 
-kubectl apply -f srcs/metallb-config.yaml > /dev/null && \
+eval $(minikube docker-env)
+
+kubectl apply -f srcs/metallb-config.yaml > /dev/null
 complete_msg "load balancer configured!"
 
-eval $(minikube docker-env) > /dev/null
+kubectl create secret generic -n metallb-system memberlist \
+	--from-literal=secretkey="$(openssl rand -base64 128)" > /dev/null
+complete_msg "kubernetes secret generated!"
 
 start_msg "building images..."
 build_image "nginx image" nginx_image srcs/nginx
