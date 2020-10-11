@@ -50,10 +50,12 @@ complete_msg "kubernetes secret generated!"
 
 start_msg "building images..."
 build_image "nginx image" nginx_image srcs/nginx
+build_image "ftps image" ftps_image srcs/ftps
 complete_msg "finished!"
 
 start_msg "setup services..."
 setup_service "nginx service" srcs/nginx.yaml
+setup_service "ftps service" srcs/ftps.yaml
 complete_msg "finished!"
 
 echo -e "\n\n"

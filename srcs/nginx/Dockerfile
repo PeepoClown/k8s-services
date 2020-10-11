@@ -7,7 +7,7 @@ RUN apk update --no-cache && \
 	apk add nginx \
 			openssl \
 			openssh \
-			supervisor --no-cache 
+			supervisor --no-cache
 
 # configure nginx
 RUN adduser -D -g 'www' www && \
@@ -21,7 +21,7 @@ COPY srcs/index.html /www/index.html
 COPY srcs/supervisord.conf /etc/supervisord.conf
 
 # configure ssh
-RUN adduser -D ssh_user && echo 'ssh_user:psswd' | chpasswd && \
+RUN adduser -D ssh_user && echo 'ssh_user:passwd' | chpasswd && \
 	ssh-keygen -t rsa -b 2048 -f /etc/ssh/id_rsa_host_key -N ""
 COPY srcs/sshd_config /etc/ssh/sshd_config
 
@@ -29,7 +29,8 @@ COPY srcs/sshd_config /etc/ssh/sshd_config
 RUN openssl req -x509 -nodes -days 90 -newkey rsa:2048 \
 	-subj '/C=RU/ST=Moscow/L=Moscow/O=ecole42/OU=21School/CN=wupdegra' \
 	-keyout /etc/ssl/certs/localhost.key \
-	-out /etc/ssl/certs/localhost.crt
+	-out /etc/ssl/certs/localhost.crt && \
+	chmod -R 755 /etc/ssl/certs/localhost*
 
 EXPOSE 80 443 22
 
