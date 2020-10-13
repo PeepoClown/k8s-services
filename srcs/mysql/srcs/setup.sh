@@ -2,11 +2,11 @@
 
 openrc default
 /etc/init.d/mariadb setup
-rc-service mariadb start
+/etc/init.d/mariadb start
 
 mysql -u root < /var/mysql_init.sql
 mysql wordpress -u root < /var/mysql_wordpress.sql
 
-rc-service mariadb stop
+/etc/init.d/mariadb stop
 
 /usr/bin/mysqld_safe --datadir='/var/lib/mysql'

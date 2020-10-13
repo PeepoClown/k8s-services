@@ -10,7 +10,7 @@ RUN apk update --no-cache && \
 
 VOLUME [ "/var/lib/mysql" ]
 
-RUN mkdir -p /run/mysql
+RUN mkdir -p /run/mysqld
 
 # copy sources
 COPY srcs/mysql_init.sql /var/mysql_init.sql

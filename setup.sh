@@ -2,26 +2,26 @@
 
 function start_msg()
 {
-	echo -e "\e[1;34m[...] $1 \e[0m"
+	echo -e "\033[1;34m[...] $1 \033[0m"
 }
 function complete_msg()
 {
-	echo -e "\e[1;32m[ + ] $1 \e[0m"
+	echo -e "\033[1;32m[ + ] $1 \033[0m"
 }
 
 function build_image()
 {
 	if docker build -t $2 $3
-	then echo -e "$1 : \e[1;32m[ + ] ok\e[0m"
-	else echo -e "$1 : \e[1;31m[ - ] ko\e[0m"
+	then echo -e "$1 : \033[1;32m[ + ] ok\033[0m"
+	else echo -e "$1 : \033[1;31m[ - ] ko\033[0m"
 	fi
 }
 
 function setup_service()
 {
 	if kubectl apply -f $2
-	then echo -e "$1 : \e[1;32m[ + ] ok\e[0m"
-	else echo -e "$1 : \e[1;31m[ - ] ko\e[0m"
+	then echo -e "$1 : \033[1;32m[ + ] ok\033[0m"
+	else echo -e "$1 : \033[1;31m[ - ] ko\033[0m"
 	fi
 }
 
@@ -51,11 +51,14 @@ complete_msg "kubernetes secret generated!"
 start_msg "building images..."
 build_image "nginx image" nginx_image srcs/nginx
 build_image "ftps image" ftps_image srcs/ftps
+build_image "mysql image" mysql_image srcs/mysql
 complete_msg "finished!"
 
 start_msg "setup services..."
 setup_service "nginx service" srcs/nginx.yaml
 setup_service "ftps service" srcs/ftps.yaml
+setup_service "mysql persistent volume" srcs/mysql-pv.yaml
+setup_service "mysql service" srcs/mysql.yaml
 complete_msg "finished!"
 
 echo -e "\n\n"
