@@ -10,12 +10,8 @@ spec:
   selector:
     app: ftps
   ports:
-    - port: 20
-      name: ftps-data
-      targetPort: 20
-      protocol: TCP
     - port: 21
-      name: ftps-cmd
+      name: ftps
       targetPort: 21
       protocol: TCP
     - port: 21000
@@ -48,9 +44,7 @@ spec:
         image: ftps_image:latest
         imagePullPolicy: Never
         ports:
-        - containerPort: 20
-          name: ftps-data
         - containerPort: 21
-          name: ftps-cmd
+          name: ftps
         - containerPort: 21000
           name: ftp-passive

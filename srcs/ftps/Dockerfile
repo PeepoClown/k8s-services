@@ -19,7 +19,7 @@ RUN adduser -D ftp_user && echo 'ftp_user:passwd' | chpasswd
 COPY srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf
 COPY srcs/welcome.mp4 /home/ftp_user/welcome.mp4
 
-EXPOSE 20 21 21000
+EXPOSE 21 21000
 
 # run container
 COPY srcs/setup.sh /var/setup.sh

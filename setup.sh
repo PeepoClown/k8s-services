@@ -57,7 +57,8 @@ complete_msg "finished!"
 start_msg "setup services..."
 setup_service "nginx service" srcs/nginx.yaml
 setup_service "ftps service" srcs/ftps.yaml
-setup_service "mysql persistent volume" srcs/mysql-pv.yaml
+setup_service "mysql volume" srcs/mysql-pv.yaml
+setup_service "mysql volume claim" srcs/mysql-pvc.yaml
 setup_service "mysql service" srcs/mysql.yaml
 complete_msg "finished!"
 
