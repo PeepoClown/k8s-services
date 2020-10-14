@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wp-service
+  labels:
+    app: wp
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 192.168.99.103
+  selector:
+    app: wp
+  ports:
+    - port: 5050
+      name: wp
+      targetPort: 5050
+      protocol: TCP
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wp-deploy
+  labels:
+    app: wp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wp
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wp
+    spec:
+      containers:
+      - name: wp
+        image: wordpress_image:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5050
+          name: wp
