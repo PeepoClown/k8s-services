@@ -6,11 +6,16 @@ metadata:
     app: ftps
 spec:
   type: LoadBalancer
+  loadBalancerIP: 192.168.99.102
   selector:
     app: ftps
   ports:
+    - port: 20
+      name: ftps-data
+      targetPort: 20
+      protocol: TCP
     - port: 21
-      name: ftps
+      name: ftps-cmd
       targetPort: 21
       protocol: TCP
     - port: 21000
@@ -23,7 +28,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ftps
+  name: ftps-deploy
   labels:
     app: ftps
 spec:
@@ -43,7 +48,9 @@ spec:
         image: ftps_image:latest
         imagePullPolicy: Never
         ports:
+        - containerPort: 20
+          name: ftps-data
         - containerPort: 21
-          name: ftps
+          name: ftps-cmd
         - containerPort: 21000
           name: ftp-passive

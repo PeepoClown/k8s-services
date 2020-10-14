@@ -25,15 +25,13 @@ spec:
   ports:
     - port: 3306
       name: mysql
-      targetPort: 3306
-      protocol: TCP
 
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  name: mysql-deploy
   labels:
     app: mysql
 spec:

@@ -6,6 +6,7 @@ metadata:
     app: nginx
 spec:
   type: LoadBalancer
+  loadBalancerIP: 192.168.99.101
   selector:
     app: nginx
   ports:
@@ -27,7 +28,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: nginx-deploy
   labels:
     app: nginx
 spec:

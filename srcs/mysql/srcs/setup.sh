@@ -1,6 +1,6 @@
 #!/bin/sh
 
-openrc default
+rc default
 /etc/init.d/mariadb setup
 /etc/init.d/mariadb start
 
