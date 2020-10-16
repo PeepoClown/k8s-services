@@ -25,8 +25,8 @@ COPY srcs/supervisord.conf /etc/supervisord.conf
 COPY srcs/wordpress.tar.gz ./wordpress.tar.gz
 RUN	tar -xzvf ./wordpress.tar.gz && \
 	mv wordpress /www/ && \
-	chown -R www:www /www/* && \
-	chmod -R 755 /www/* && \
+	chown -R www:www /www && \
+	chmod -R 755 /www && \
 	rm -rf ./wordpress.tar.gz
 
 EXPOSE 5050
