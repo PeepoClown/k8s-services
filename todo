@@ -1,3 +1,14 @@
-add pv to ftps
+check yaml
+loadBalancer = perf
+nginx = perf
+ftps = 20 port to ftp & volume for ftps
+mysql = targetPort ??? & path to volume = /mnt or /tmp ???
+wp = perf
+pma= perf
+---
+
+
+
+
 wp - to /www
 php --server 0.0.0.0:5050 --docroot /www/

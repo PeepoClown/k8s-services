@@ -3,10 +3,10 @@ kind: PersistentVolume
 metadata:
   name: mysql-pv
 spec:
-  storageClassName: manual
+  storageClassName: mysql
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/mysql"
+    path: "/tmp/mysql"
