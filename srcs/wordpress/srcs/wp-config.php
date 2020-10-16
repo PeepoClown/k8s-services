@@ -29,11 +29,16 @@ define('DB_PASSWORD', '12345');
 /** MySQL hostname */
 define('DB_HOST', 'mysql-service:3306');
 
+define('WP_HOME', 'http://192.168.99.103:5050/');
+define('WP_SITEURL', 'http://192.168.99.103:5050/');
+
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
 
 /** The Database Collate type. Don’t change this if in doubt. */
 define('DB_COLLATE', '');
+
+define('FS_METHOD', 'direct');
 
 /**#@+
 * Authentication Unique Keys and Salts.
@@ -59,7 +64,7 @@ define('NONCE_SALT',       'Ao]Prn?zwp>,t,6-GCD:L#E&)W6dS/)9poQ^cg{Y|8$A1Ll}:S;@
 * You can have multiple installations in one database if you give each a unique
 * prefix. Only numbers, letters, and underscores please!
 */
-$table_prefix  = 'wp_';
+$table_prefix = 'wp_';
 
 /**
 * For developers: WordPress debugging mode.

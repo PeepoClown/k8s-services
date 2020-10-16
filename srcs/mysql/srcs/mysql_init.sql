@@ -1,4 +1,4 @@
 CREATE DATABASE wordpress;
 CREATE USER 'wupdegra'@'%' IDENTIFIED BY '12345';
-GRANT ALL PRIVILEGES ON *.* TO 'wupdegra'@'%';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'wupdegra'@'%';
 FLUSH PRIVILEGES;
