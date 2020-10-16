@@ -53,6 +53,7 @@ build_image "nginx image" nginx_image srcs/nginx
 build_image "ftps image" ftps_image srcs/ftps
 build_image "mysql image" mysql_image srcs/mysql
 build_image "wordpress image" wordpress_image srcs/wordpress
+build_image "phpMyAdmin image" php_my_admin_image srcs/php_my_admin
 complete_msg "finished!"
 
 start_msg "setup services..."
@@ -61,6 +62,7 @@ setup_service "ftps service" srcs/ftps.yaml
 setup_service "mysql volume" srcs/mysql-pv.yaml
 setup_service "mysql service" srcs/mysql.yaml
 setup_service "wordpress service" srcs/wordpress.yaml
+setup_service "phpMyAdmin service" srcs/php_my_admin.yaml
 complete_msg "finished!"
 
 echo -e "\n\n"
