@@ -14,6 +14,20 @@ spec:
 
 ---
 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -38,11 +52,10 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 3306
-          name: mysql
         volumeMounts:
-        - name: mysql-p-storage
-          mountPath: /var/lib/mysql
+        - mountPath: /var/lib/mysql
+          name: mysql-storage
       volumes:
-      - name: mysql-p-storage
+      - name: mysql-storage
         persistentVolumeClaim:
           claimName: mysql-pv-claim

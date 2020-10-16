@@ -45,6 +45,4 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 21
-          name: ftps
         - containerPort: 21000
-          name: ftp-passive

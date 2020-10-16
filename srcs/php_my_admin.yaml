@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pma-service
+  labels:
+    app: pma
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 192.168.99.104
+  selector:
+    app: pma
+  ports:
+    - port: 5000
+      name: pma
+      targetPort: 5000
+      protocol: TCP
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pma-deploy
+  labels:
+    app: pma
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pma
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: pma
+    spec:
+      containers:
+      - name: pma
+        image: php_my_admin_image:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
