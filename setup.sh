@@ -28,7 +28,7 @@ function setup_service()
 start_msg "launch minikube..."
 minikube start	--vm-driver=virtualbox \
 				--cpus=2 \
-				--memory=4096mb \
+				--memory=3000mb \
 				--disk-size=10000mb \
 				--extra-config=kubelet.authentication-token-webhook=true
 complete_msg "finished!"
@@ -49,20 +49,22 @@ kubectl create secret generic -n metallb-system memberlist \
 complete_msg "kubernetes secret generated!"
 
 start_msg "building images..."
-build_image "nginx image" nginx_image srcs/nginx
-build_image "ftps image" ftps_image srcs/ftps
-build_image "mysql image" mysql_image srcs/mysql
-build_image "wordpress image" wordpress_image srcs/wordpress
-build_image "phpMyAdmin image" php_my_admin_image srcs/php_my_admin
+# build_image "nginx image" nginx_image srcs/nginx
+# build_image "ftps image" ftps_image srcs/ftps
+# build_image "mysql image" mysql_image srcs/mysql
+# build_image "wordpress image" wordpress_image srcs/wordpress
+# build_image "phpMyAdmin image" php_my_admin_image srcs/php_my_admin
+build_image "grafana image" grafana_image srcs/grafana
 complete_msg "finished!"
 
 start_msg "setup services..."
-setup_service "nginx service" srcs/nginx.yaml
-setup_service "ftps service" srcs/ftps.yaml
-setup_service "mysql volume" srcs/mysql-pv.yaml
-setup_service "mysql service" srcs/mysql.yaml
-setup_service "wordpress service" srcs/wordpress.yaml
-setup_service "phpMyAdmin service" srcs/php_my_admin.yaml
+# setup_service "nginx service" srcs/nginx.yaml
+# setup_service "ftps service" srcs/ftps.yaml
+# setup_service "mysql volume" srcs/mysql-pv.yaml
+# setup_service "mysql service" srcs/mysql.yaml
+# setup_service "wordpress service" srcs/wordpress.yaml
+# setup_service "phpMyAdmin service" srcs/php_my_admin.yaml
+setup_service "grafana service" srcs/grafana.yaml
 complete_msg "finished!"
 
 echo -e "\n\n"
