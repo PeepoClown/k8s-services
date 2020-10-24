@@ -22,7 +22,7 @@ COPY srcs/supervisord.conf /etc/supervisord.conf
 
 # configure ssh
 RUN adduser -D ssh_user && echo 'ssh_user:passwd' | chpasswd && \
-	ssh-keygen -t rsa -b 2048 -f /etc/ssh/id_rsa_host_key -N ""
+	ssh-keygen -A
 COPY srcs/sshd_config /etc/ssh/sshd_config
 
 # generate ssl cert
