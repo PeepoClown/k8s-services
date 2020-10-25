@@ -8,8 +8,6 @@ RUN apk update --no-cache && \
 			mariadb-client \
 			openrc --no-cache
 
-VOLUME [ "/var/lib/mysql" ]
-
 RUN mkdir -p /run/mysqld
 
 # copy sources
@@ -19,6 +17,7 @@ COPY srcs/my.cnf /etc/mysql/my.cnf
 
 RUN chmod 755 /etc/mysql/my.cnf
 
+VOLUME [ "/var/lib/mysql" ]
 EXPOSE 3306
 
 # run container

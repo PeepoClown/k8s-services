@@ -4,30 +4,34 @@ LABEL maintainer="wupdegra@student.21-school.ru"
 # update & install packages
 RUN apk update --no-cache && \
 	apk upgrade --no-cache && \
-	apk add	mariadb \
-			mariadb-client \
-			openrc --no-cache
+	apk add	wget \
+			supervisor \
+			influxdb \
+			openrc
 
-VOLUME [ "/var/lib/mysql" ]
 
-RUN mkdir -p /run/mysqld
+# RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
+# 	&&	wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.32-r0/glibc-2.32-r0.apk \
+# 	&&	apk add glibc-2.32-r0.apk \
+# 	&&	wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.2-static_linux_amd64.tar.gz \
+# 	&&	mkdir /var/lib/influxdb \
+# 	&&	tar xfz influxdb-1.8.2-static_linux_amd64.tar.gz \
+# 	&&	mv /influxdb-1.8.2-1 /etc/influxdb \
+# 	&&	rm -f influxdb-1.8.2-static_linux_amd64.tar.gz \
+# 	&&	wget https://dl.influxdata.com/telegraf/releases/telegraf-1.15.3_linux_amd64.tar.gz \
+# 	&&	tar xf telegraf-1.15.3_linux_amd64.tar.gz \
+# 	&&	cp -r /telegraf-1.15.3/* / \
+# 	&&	rm -rf /telegraf-1.15.3/ telegraf-1.15.3_linux_amd64.tar.gz \
+# 	&&	./usr/bin/telegraf -sample-config --input-filter docker \
+# 						--output-filter influxdb > /etc/telegraf/telegraf.conf 
 
-# copy sources
-COPY srcs/mysql_init.sql /var/mysql_init.sql
-COPY srcs/mysql_wordpress.sql /var/mysql_wordpress.sql
-COPY srcs/my.cnf /etc/mysql/my.cnf
+COPY srcs/supervisord.conf /etc/supervisord.conf
 
-RUN chmod 755 /etc/mysql/my.cnf
-
-EXPOSE 3306
+VOLUME [ "/var/lib/influxdb" ]
+EXPOSE 8086
 
 # run container
 COPY srcs/setup.sh /var/setup.sh
 RUN chmod 755 /var/setup.sh
 
 ENTRYPOINT [ "/var/setup.sh" ]
-
-
-influx & telegraf :
-/etc/influxdb/influxd && kill -s SIGTERM $(cat supervisord.pid)"
-/usr/bin/telegraf --config /etc/telegraf/telegraf.conf && kill -s SIGTERM $(cat supervisord.pid)"
