@@ -1,5 +1,3 @@
 #!/bin/sh
 
-#/usr/bin/supervisord -c /etc/supervisord.conf
-rc default
-telegraf --config /tmp/telegraf.conf
+/usr/bin/telegraf --config /etc/telegraf/telegraf.conf
