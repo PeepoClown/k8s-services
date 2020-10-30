@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: influxdb-service
+  name: influxdb
   labels:
     app: influxdb
 spec:
