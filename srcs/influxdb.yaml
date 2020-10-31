@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: influxdb
+  name: influxdb-service
   labels:
     app: influxdb
 spec:
@@ -60,4 +60,4 @@ spec:
       volumes:
       - name: influxdb-storage
         persistentVolumeClaim:
-          claimName: influxdb-pv-claimName
+          claimName: influxdb-pv-claim

@@ -4,9 +4,11 @@ metadata:
   name: wordpress-service
   labels:
     app: wordpress
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
 spec:
   type: LoadBalancer
-  loadBalancerIP: 192.168.99.103
+  loadBalancerIP: 192.168.99.110
   selector:
     app: wordpress
   ports:

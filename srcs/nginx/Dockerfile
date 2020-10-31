@@ -15,10 +15,15 @@ RUN adduser -D -g 'www' www && \
 	chown -R www:www /www && \
 	chown -R www:www /var/lib/nginx
 
+# install telegraf
+RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --no-cache && \
+	mkdir /etc/telegraf
+
 # copy sources
 COPY srcs/nginx.conf /etc/nginx/nginx.conf
 COPY srcs/index.html /www/index.html
 COPY srcs/supervisord.conf /etc/supervisord.conf
+COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
 
 # configure ssh
 RUN adduser -D ssh_user && echo 'ssh_user:passwd' | chpasswd && \

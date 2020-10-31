@@ -5,7 +5,8 @@ LABEL maintainer="wupdegra@student.21-school.ru"
 RUN apk update --no-cache && \
 	apk upgrade --no-cache && \
 	apk add vsftpd \
-			openssl --no-cache
+			openssl \
+			supervisor --no-cache
 
 # generate ssl cert
 RUN openssl req -x509 -nodes -days 90 -newkey rsa:2048 \
@@ -18,6 +19,14 @@ RUN openssl req -x509 -nodes -days 90 -newkey rsa:2048 \
 RUN adduser -D ftp_user && echo 'ftp_user:passwd' | chpasswd
 COPY srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf
 COPY srcs/welcome.mp4 /home/ftp_user/welcome.mp4
+
+# install telegraf
+RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --no-cache && \
+	mkdir /etc/telegraf
+
+# copy sources
+COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
+COPY srcs/supervisord.conf /etc/supervisord.conf
 
 EXPOSE 21 21000
 

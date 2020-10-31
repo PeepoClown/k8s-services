@@ -4,7 +4,8 @@ LABEL maintainer="wupdegra@student.21-school.ru"
 # update & install packages
 RUN apk update --no-cache && \
 	apk upgrade --no-cache && \
-	apk add	--no-cache telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ \
+	apk add	--no-cache git vim \
+	 telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ \
         influxdb
 
 VOLUME [ "/var/lib/influxdb" ]

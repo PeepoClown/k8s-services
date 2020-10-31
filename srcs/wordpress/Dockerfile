@@ -17,9 +17,14 @@ RUN adduser -D -g 'www' www && \
 	mkdir -p /run/nginx /run/php && \
 	rm -rf /etc/nginx/nginx.conf
 
+# install telegraf
+RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --no-cache && \
+	mkdir /etc/telegraf
+
 # copy sources
 COPY srcs/nginx.conf /etc/nginx/nginx.conf
 COPY srcs/supervisord.conf /etc/supervisord.conf
+COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
 
 # install wordpress
 COPY srcs/wordpress.tar.gz ./wordpress.tar.gz
