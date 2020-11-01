@@ -6,18 +6,11 @@ RUN apk update --no-cache && \
 	apk upgrade --no-cache && \
 	apk add	mariadb \
 			mariadb-client \
-			openrc \
-			supervisor --no-cache
+			openrc --no-cache
 
 RUN mkdir -p /run/mysqld
 
-# install telegraf
-RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --no-cache && \
-	mkdir /etc/telegraf
-
 # copy sources
-COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
-COPY srcs/supervisord.conf /etc/supervisord.conf
 COPY srcs/mysql_init.sql /var/mysql_init.sql
 COPY srcs/mysql_wordpress.sql /var/mysql_wordpress.sql
 COPY srcs/my.cnf /etc/mysql/my.cnf

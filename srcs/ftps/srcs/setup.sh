@@ -1,3 +1,4 @@
 #!/bin/sh
 
-/usr/bin/supervisord -c /etc/supervisord.conf
+rc default
+/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf

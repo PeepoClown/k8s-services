@@ -18,14 +18,9 @@ RUN adduser -D -g 'www' www && \
 	mkdir -p /run/nginx /run/php && \
 	rm -rf /etc/nginx/nginx.conf
 
-# install telegraf
-RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --no-cache && \
-	mkdir /etc/telegraf
-
 # copy sources
 COPY srcs/nginx.conf /etc/nginx/nginx.conf
 COPY srcs/supervisord.conf /etc/supervisord.conf
-COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
 
 # install pma
 RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.tar.gz && \

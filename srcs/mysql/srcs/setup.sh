@@ -9,5 +9,4 @@ mysql wordpress -u root < /var/mysql_wordpress.sql
 
 /etc/init.d/mariadb stop
 
-#/usr/bin/mysqld_safe --datadir='/var/lib/mysql'
-/usr/bin/supervisord -c /etc/supervisord.conf
+/usr/bin/mysqld_safe --datadir='/var/lib/mysql'

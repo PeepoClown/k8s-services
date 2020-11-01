@@ -5,15 +5,18 @@ metadata:
   labels:
     app: ftps
   annotations:
-    metallb.universe.tf/allow-shared-ip: shared
+    metallb.universe.tf/allow-shared-ip: shared-ip
 spec:
   type: LoadBalancer
-  loadBalancerIP: 192.168.99.110
   selector:
     app: ftps
   ports:
+    - port: 20
+      name: ftps-data
+      targetPort: 20
+      protocol: TCP
     - port: 21
-      name: ftps
+      name: ftps-mgr
       targetPort: 21
       protocol: TCP
     - port: 21000
@@ -46,5 +49,6 @@ spec:
         image: ftps_image:latest
         imagePullPolicy: Never
         ports:
+        - containerPort: 20
         - containerPort: 21
         - containerPort: 21000
