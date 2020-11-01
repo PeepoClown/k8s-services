@@ -19,7 +19,7 @@ RUN wget https://dl.grafana.com/oss/release/grafana-7.2.2.linux-amd64.tar.gz && 
 	rm -rf grafana-7.2.2.linux-amd64.tar.gz grafana-7.2.2
 
 # copy sources
-# COPY srcs/grafana.db /data/grafana.db
+COPY srcs/grafana.db /data/grafana.db
 
 EXPOSE 3000
 
