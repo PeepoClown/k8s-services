@@ -12,6 +12,8 @@ RUN apk update --no-cache && \
 			php7-xml php7-xmlrpc php7-zip \
 			supervisor
 
+VOLUME [ "/sys/fs/cgroup" ]
+
 # configure nginx
 RUN adduser -D -g 'www' www && \
 	mkdir -p /run/nginx /run/php && \

@@ -1,4 +1,4 @@
 #!/bin/sh
 
-rc default
+openrc default
 ./bin/grafana-server

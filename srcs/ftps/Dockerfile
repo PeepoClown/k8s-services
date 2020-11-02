@@ -8,6 +8,8 @@ RUN apk update --no-cache && \
 			openssl \
 			openrc --no-cache
 
+VOLUME [ "/sys/fs/cgroup" ]
+
 # generate ssl cert
 RUN openssl req -x509 -nodes -days 90 -newkey rsa:2048 \
 	-subj '/C=RU/ST=Moscow/L=Moscow/O=ecole42/OU=21School/CN=wupdegra' \

@@ -1,4 +1,4 @@
 #!/bin/sh
 
-rc default
+openrc default
 /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf

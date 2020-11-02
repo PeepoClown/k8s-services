@@ -13,6 +13,8 @@ RUN apk update --no-cache && \
 			php7-session \
 			supervisor
 
+VOLUME [ "/sys/fs/cgroup" ]
+
 # configure nginx
 RUN adduser -D -g 'www' www && \
 	mkdir -p /run/nginx /run/php && \

@@ -9,6 +9,8 @@ RUN apk update --no-cache && \
 			openssh \
 			supervisor --no-cache
 
+VOLUME [ "/sys/fs/cgroup" ]
+
 # configure nginx
 RUN adduser -D -g 'www' www && \
 	mkdir -p /www /run/nginx && \
