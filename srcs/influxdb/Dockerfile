@@ -31,4 +31,4 @@ EXPOSE 8086
 COPY srcs/setup.sh /var/setup.sh
 RUN chmod 755 /var/setup.sh
 
-ENTRYPOINT [ "/var/setup.sh" ]
+CMD sh /var/setup.sh

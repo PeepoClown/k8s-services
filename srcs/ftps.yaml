@@ -33,7 +33,6 @@ metadata:
   labels:
     app: ftps
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: ftps

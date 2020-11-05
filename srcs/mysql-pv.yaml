@@ -5,10 +5,10 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: mysql
+  storageClassName: mysql-volume
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data/mysql"
+    path: "/mnt/mysql"

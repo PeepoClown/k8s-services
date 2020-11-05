@@ -8,7 +8,6 @@ RUN apk update --no-cache && \
 			mariadb-client \
 			openrc --no-cache
 
-VOLUME [ "/sys/fs/cgroup" ]
 VOLUME [ "/var/lib/mysql" ]
 
 # copy sources
@@ -19,14 +18,6 @@ COPY srcs/my.cnf /etc/mysql/my.cnf
 RUN chmod 744 /etc/mysql/my.cnf
 
 EXPOSE 3306
-
-# setup db
-RUN	openrc default && \
-	/etc/init.d/mariadb setup && \
-	/etc/init.d/mariadb start && \
-	mysql -u root < /var/mysql_init.sql && \
-	mysql wordpress -u root < /var/mysql_wordpress.sql && \
-	/etc/init.d/mariadb stop
 
 # run container
 COPY srcs/setup.sh /var/setup.sh

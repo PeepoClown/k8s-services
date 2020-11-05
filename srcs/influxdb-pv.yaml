@@ -5,10 +5,10 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: influxdb
+  storageClassName: influxdb-volume
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data/influxdb"
+    path: "/mnt/influxdb"

@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: influxdb-pv-claim
 spec:
-  storageClassName: influxdb
+  storageClassName: influxdb-volume
   accessModes:
     - ReadWriteOnce
   resources:
@@ -37,7 +37,6 @@ metadata:
   labels:
     app: influxdb
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: influxdb
