@@ -9,8 +9,6 @@ RUN apk update --no-cache && \
 			openssh \
 			supervisor --no-cache
 
-VOLUME [ "/sys/fs/cgroup" ]
-
 # configure nginx
 RUN adduser -D -g 'www' www && \
 	mkdir -p /www /run/nginx && \
@@ -40,4 +38,4 @@ EXPOSE 80 443 22
 COPY srcs/setup.sh /var/setup.sh
 RUN chmod 755 /var/setup.sh
 
-CMD sh /var/setup.sh
+ENTRYPOINT [ "/var/setup.sh" ]

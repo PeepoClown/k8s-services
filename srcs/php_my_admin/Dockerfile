@@ -13,8 +13,6 @@ RUN apk update --no-cache && \
 			php7-session \
 			supervisor
 
-VOLUME [ "/sys/fs/cgroup" ]
-
 # configure nginx
 RUN adduser -D -g 'www' www && \
 	mkdir -p /run/nginx /run/php && \
@@ -38,4 +36,4 @@ EXPOSE 5000
 COPY srcs/setup.sh /var/setup.sh
 RUN chmod 755 /var/setup.sh
 
-CMD sh /var/setup.sh
+ENTRYPOINT [ "/var/setup.sh" ]

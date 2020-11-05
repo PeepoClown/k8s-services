@@ -28,8 +28,6 @@ spec:
   selector:
     matchLabels:
       app: pma
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:

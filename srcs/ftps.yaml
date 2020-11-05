@@ -36,8 +36,6 @@ spec:
   selector:
     matchLabels:
       app: ftps
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:

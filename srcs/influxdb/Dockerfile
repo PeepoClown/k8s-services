@@ -8,7 +8,6 @@ RUN apk update --no-cache && \
 			influxdb \
 			supervisor --no-cache
 
-VOLUME [ "/sys/fs/cgroup" ]
 VOLUME [ "/var/lib/influxdb" ]
 
 # install glibc

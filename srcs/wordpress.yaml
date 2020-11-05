@@ -28,8 +28,6 @@ spec:
   selector:
     matchLabels:
       app: wordpress
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
