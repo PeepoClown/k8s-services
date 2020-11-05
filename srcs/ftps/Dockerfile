@@ -26,4 +26,4 @@ EXPOSE 20 21 21000
 COPY srcs/setup.sh /var/setup.sh
 RUN chmod 755 /var/setup.sh
 
-CMD sh /var/setup.sh
+ENTRYPOINT [ "/var/setup.sh" ]
