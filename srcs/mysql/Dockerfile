@@ -15,7 +15,7 @@ COPY srcs/mysql_init.sql /var/mysql_init.sql
 COPY srcs/mysql_wordpress.sql /var/mysql_wordpress.sql
 COPY srcs/my.cnf /etc/mysql/my.cnf
 
-RUN chmod 744 /etc/mysql/my.cnf
+RUN chmod 755 /etc/mysql/my.cnf
 
 EXPOSE 3306
 
