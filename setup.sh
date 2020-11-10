@@ -71,5 +71,5 @@ kubectl create secret generic -n metallb-system memberlist \
 complete_msg "kubernetes secret generated!"
 
 echo -e "\n\n"
-sleep 5
+sleep 10
 complete_msg "All Done!!!"

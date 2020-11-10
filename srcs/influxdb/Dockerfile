@@ -23,6 +23,7 @@ RUN	wget https://dl.influxdata.com/telegraf/releases/telegraf-1.16.1_static_linu
 	./usr/bin/telegraf -sample-config --input-filter docker --output-filter influxdb > /etc/telegraf/telegraf.conf
 
 COPY srcs/supervisord.conf /etc/supervisord.conf
+# COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
 
 EXPOSE 8086
 
