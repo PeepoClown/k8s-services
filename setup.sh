@@ -70,6 +70,6 @@ kubectl create secret generic -n metallb-system memberlist \
 	--from-literal=secretkey="$(openssl rand -base64 128)" > /dev/null
 complete_msg "kubernetes secret generated!"
 
-echo -e "\n\n"
-sleep 5
+echo -e "\nWaiting...\n"
+sleep 10
 complete_msg "All Done!!!"
