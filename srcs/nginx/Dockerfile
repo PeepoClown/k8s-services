@@ -28,7 +28,7 @@ COPY srcs/sshd_config /etc/ssh/sshd_config
 # generate ssl cert
 RUN openssl req -x509 -nodes -days 90 -newkey rsa:2048 \
 	-subj '/C=RU/ST=Moscow/L=Moscow/O=ecole42/OU=21School/CN=wupdegra' \
-	-keyout /etc/ssl/certs/localhost.key \
+	-keyout /etc/ssl/private/localhost.key \
 	-out /etc/ssl/certs/localhost.crt && \
 	chmod -R 755 /etc/ssl/certs/localhost*
 
