@@ -13,10 +13,11 @@ RUN apk update --no-cache && \
 RUN adduser -D -g 'www' www && \
 	mkdir -p /www /run/nginx && \
 	chown -R www:www /www && \
-	chown -R www:www /var/lib/nginx
+	chown -R www:www /var/lib/nginx && \
+	rm -rf /etc/nginx/conf.d/default.conf
 
 # copy sources
-COPY srcs/nginx.conf /etc/nginx/nginx.conf
+COPY srcs/nginx.conf /etc/nginx/conf.d/nginx.conf
 COPY srcs/index.html /www/index.html
 COPY srcs/supervisord.conf /etc/supervisord.conf
 

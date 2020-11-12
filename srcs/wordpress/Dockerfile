@@ -15,10 +15,10 @@ RUN apk update --no-cache && \
 # configure nginx
 RUN adduser -D -g 'www' www && \
 	mkdir -p /run/nginx /run/php && \
-	rm -rf /etc/nginx/nginx.conf
+	rm -rf /etc/nginx/conf.d/default.conf
 
 # copy sources
-COPY srcs/nginx.conf /etc/nginx/nginx.conf
+COPY srcs/nginx.conf /etc/nginx/conf.d/nginx.conf
 COPY srcs/supervisord.conf /etc/supervisord.conf
 
 # install wordpress

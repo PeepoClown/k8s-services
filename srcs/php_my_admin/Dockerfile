@@ -16,17 +16,17 @@ RUN apk update --no-cache && \
 # configure nginx
 RUN adduser -D -g 'www' www && \
 	mkdir -p /run/nginx /run/php && \
-	rm -rf /etc/nginx/nginx.conf
+	rm -rf /etc/nginx/conf.d/default.conf
 
 # copy sources
-COPY srcs/nginx.conf /etc/nginx/nginx.conf
+COPY srcs/nginx.conf /etc/nginx/conf.d/nginx.conf
 COPY srcs/supervisord.conf /etc/supervisord.conf
 
 # install pma
-RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.tar.gz && \
-	tar -xzvf phpMyAdmin-5.0.2-all-languages.tar.gz && \
-	mv phpMyAdmin-5.0.2-all-languages /www && \
-	rm -rf phpMyAdmin-5.0.2-all-languages.tar.gz
+RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-all-languages.tar.gz && \
+	tar -xzvf phpMyAdmin-5.0.4-all-languages.tar.gz && \
+	mv phpMyAdmin-5.0.4-all-languages /www && \
+	rm -rf phpMyAdmin-5.0.4-all-languages.tar.gz
 COPY srcs/phpmyadmin.php /www/config.inc.php
 RUN chmod -R 755 /www
 
