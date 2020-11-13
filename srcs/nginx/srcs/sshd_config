@@ -2,4 +2,3 @@ Port 22
 PermitRootLogin yes
 PasswordAuthentication yes
 PermitEmptyPasswords yes
-Subsystem sftp /usr/lib/ssh/sftp-server
